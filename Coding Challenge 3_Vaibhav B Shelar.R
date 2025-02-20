@@ -124,11 +124,14 @@ Combine.plot
 ### There will be only one common legend for all plots. 
 
 
+
+
 ## Q5
 
 # Use geom_pwc() to add t.test pairwise comparisons to the three plots made above. 
 # Save each plot as a new R object, and combine them again with ggarange as you did in question 4. 
 
+# a)
 DONplot.pwc <- ggplot(Mycotoxin_Data, aes(x = Treatment, y = DON, fill = Cultivar)) +
   geom_boxplot(outliers = F) + 
   xlab("") + 
@@ -147,11 +150,55 @@ stat_compare_means(method = "t.test", label = "p.signif",
 DONplot.pwc
 
 
+# b)
+X15ADONplot.pwc <- ggplot(Mycotoxin_Data, aes(x = Treatment, y = X15ADON, fill = Cultivar)) +
+  geom_boxplot(outliers = F) + 
+  xlab("") + 
+  ylab("15ADON") + 
+  geom_point(alpha = 0.6, pch = 21, color = "black", position = position_jitterdodge()) +
+  scale_color_manual(values = c(cbbPalette[3], cbbPalette[4])) +
+  scale_fill_manual(values = c(cbbPalette[3], cbbPalette[4])) +
+  theme_classic() +
+  facet_wrap(~Cultivar) +
+  stat_compare_means(method = "t.test", label = "p.signif", 
+                     comparisons = list(c(c("NTC", "Fg"), 
+                                          c("Fg", "Fg + 37"), 
+                                          c("Fg + 37", "Fg + 40"), 
+                                          c("Fg + 40", "Fg + 70")))
+
+X15ADONplot.pwc
+
+# c) 
+Seed.massplot.pwc <- ggplot(Mycotoxin_Data, aes(x = Treatment, y = MassperSeed_mg, fill = Cultivar)) +
+  geom_boxplot(outliers = F) + 
+  xlab("") + 
+  ylab("Seed Mass (mg)") + 
+  geom_point(alpha = 0.6, pch = 21, color = "black", position = position_jitterdodge()) +
+  scale_color_manual(values = c(cbbPalette[3], cbbPalette[4])) +
+  scale_fill_manual(values = c(cbbPalette[3], cbbPalette[4])) +
+  theme_classic() +
+  facet_wrap(~Cultivar) +
+  stat_compare_means(method = "t.test", label = "p.signif", 
+                     comparisons = list(c("NTC", "Fg"), 
+                                        c("Fg", "Fg + 37"), 
+                                        c("Fg + 37", "Fg + 40"), 
+                                        c("Fg + 40", "Fg + 70")))
+
+Seed.massplot.pwc
 
 
+Combineplot.pwc <- ggarrange(
+  DONplot.pwc,
+  X15ADONplot.pwc, 
+  Seed.massplot.pwc, 
+  labels = c("A", "B", "C"),
+  nrow = 1,
+  ncol = 3,
+  common.legend = TRUE,
+  legend = "bottom"
+)
 
-
-
+Combineplot.pwc
 
 
 
