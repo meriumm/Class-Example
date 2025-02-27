@@ -4,7 +4,7 @@
 
 ### Readme file link
 
-[link to my Readme file](Coding-challenge.4.md)
+[link to my Readme file](coding-challenge.4.md)
 
 ### Clickable Link to the Manuscript
 
